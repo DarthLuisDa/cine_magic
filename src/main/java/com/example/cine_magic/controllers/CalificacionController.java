@@ -31,11 +31,11 @@ public class CalificacionController {
     public Calificacion obtenerCalificacionPorId(@PathVariable Long id) {
         Calificacion calificacion;
         if(id < 1){
-            throw new IdNotValueException("El id-espectador debe ser númerico y mayor a 0", "err-81", HttpStatus.BAD_REQUEST);
+            throw new IdNotValueException("El id-calificación debe ser númerico y mayor a 0", "err-81", HttpStatus.BAD_REQUEST);
         }
         calificacion = calificacionService.obtenerCalificacionPorId(id);
         if(calificacion == null){
-            throw new NotFoundException("No se encontró ningún espectador con id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
+            throw new NotFoundException("No se encontró ninguna calificación con id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(calificacion).getBody();
     }
@@ -58,11 +58,11 @@ public class CalificacionController {
     public Calificacion actualizarCalificacion(@PathVariable Long id, @Valid  @RequestBody Calificacion calificacionModificado, BindingResult resultado) {
         Calificacion calificacion;
         if(id < 1){
-            throw new IdNotValueException("El id-espectador debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
+            throw new IdNotValueException("El id-calificación debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
         }
         calificacion = calificacionService.obtenerCalificacionPorId(id);
         if(calificacion == null){
-            throw new NotFoundException("No se encontró ningún espectador con ese id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
+            throw new NotFoundException("No se encontró ninguna calificación con ese id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
         }
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
@@ -77,13 +77,13 @@ public class CalificacionController {
     public ResponseEntity<String> eliminarCalificacion(@PathVariable Long id){
         Calificacion calificacion;
         if(id < 1){
-            throw new IdNotValueException("El id-espectador debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
+            throw new IdNotValueException("El id-calificación debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
         }
         calificacion = calificacionService.obtenerCalificacionPorId(id);
         if(calificacion == null){
-            throw new NotFoundException("No se encontró ningún espectador con ese id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
+            throw new NotFoundException("No se encontró ninguna calificación con ese id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
         }
         calificacion = calificacionService.eliminarCalificacion(id);
-        return ResponseEntity.ok("Se eliminó el espectador con id:"+" "+ id);
+        return ResponseEntity.ok("Se eliminó la calificación con id:"+" "+ id);
     }
 }

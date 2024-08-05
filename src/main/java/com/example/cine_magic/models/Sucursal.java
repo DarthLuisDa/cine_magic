@@ -1,8 +1,6 @@
 package com.example.cine_magic.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,8 +13,6 @@ public class Sucursal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "El id-sucursal no debe ser null")
     @NotEmpty(message = "El id-sucursal no debe estar vacío")
-    @Min(value = 1, message = "El id sucursal debe ser 1")  //Por lo pronto solo existe una sucursal por eso esta excepción
-    @Max(value = 1, message = "El id sucursal debe ser 1")  //Por lo pronto solo existe una sucursal por eso esta excepción
     @Column(name = "ID_Sucursal", nullable = false)
     private String ID_Sucursal;
 

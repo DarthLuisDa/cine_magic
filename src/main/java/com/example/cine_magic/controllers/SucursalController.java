@@ -82,6 +82,9 @@ public class SucursalController {
         if(sucursal == null){
             throw new NotFoundException("No se encontró ninguna sucursal con ese id:"+" "+ id,"err-12",HttpStatus.NOT_FOUND);
         }
+        if(id == 1){
+            return ResponseEntity.ofNullable("No se puede eliminar el id-sucursal:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
         sucursal = sucursalService.eliminarSucursal(id);
         return ResponseEntity.ok("Se eliminó la sucursal con id:"+" "+ id);
     }

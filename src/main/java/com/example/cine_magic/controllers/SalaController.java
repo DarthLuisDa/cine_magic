@@ -6,13 +6,16 @@ import com.example.cine_magic.exceptions.NotFoundException;
 import com.example.cine_magic.models.Sala;
 import com.example.cine_magic.services.SalaServiceI;
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/cine_magic_db")
@@ -54,7 +57,7 @@ public class SalaController {
     //Sí Funciona al 100%
 
     @PutMapping("/sala/{id}")
-    public Sala actualizarSala(@PathVariable Long id, @Valid  @RequestBody Sala salaModificada, BindingResult resultado) {
+    public ResponseEntity<String> actualizarSala(@PathVariable Long id, @Valid  @RequestBody Sala salaModificada, BindingResult resultado) {
         Sala sala;
         if(id < 1){
             throw new IdNotValueException("El id-sala debe ser númerico y mayor a 0", "err-84",HttpStatus.BAD_REQUEST);
@@ -67,8 +70,38 @@ public class SalaController {
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.BAD_REQUEST, resultado);
         }
+        if(id == 1){
+           return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 2){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 3){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 4){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 5){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 6){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 7){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 8){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 9){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 10){
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
         sala = salaService.actualizarSala(id, salaModificada);
-        return sala;
+        return ResponseEntity.ok("Se modificó la sala con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%
@@ -82,6 +115,37 @@ public class SalaController {
         if(sala == null){
             throw new NotFoundException("No se encontró ninguna sala con ese id:"+" "+ id,"err-82",HttpStatus.NOT_FOUND);
         }
+        if(id == 1){
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 2){
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 3){
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 4) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 5) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 6) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 7) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 8) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 9) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+        if(id == 10) {
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+        }
+
         sala = salaService.eliminarSala(id);
         return ResponseEntity.ok("Se eliminó la sala con id:"+" "+ id);
     }

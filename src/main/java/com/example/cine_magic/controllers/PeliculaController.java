@@ -42,22 +42,26 @@ public class PeliculaController {
 
     //Sí Funciona al 100%
     @PostMapping("/pelicula")
-    public Pelicula crearPelicula(@Valid @RequestBody Pelicula pelicula, BindingResult resultado) {
+    public ResponseEntity<String> crearPelicula(@Valid @RequestBody Pelicula pelicula, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-23",HttpStatus.NOT_FOUND, resultado);
         }
-        return peliculaService.crearPelicula(pelicula);
+        pelicula = peliculaService.crearPelicula(pelicula);
+        return ResponseEntity.ok("Se creó:"+ pelicula);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/pelicula/{id}")
-    public  Pelicula actualizarPelicula(@PathVariable Long id, @Valid  @RequestBody Pelicula peliculaModificada, BindingResult resultado) {
+    public ResponseEntity<String> actualizarPelicula(@PathVariable Long id, @Valid  @RequestBody Pelicula peliculaModificada, BindingResult resultado) {
         Pelicula pelicula;
         if(id < 1){
             throw new IdNotValueException("El id-pelicula debe ser númerico y mayor a 0", "err-24",HttpStatus.BAD_REQUEST);
+        }
+        if(id <= 4) {
+            return ResponseEntity.badRequest().body("No se puede modificar el id-pelicula:" + " " + id + " " + "puesto que varias funciones y boletos de cine ya lo contienen");
         }
         pelicula = peliculaService.obtenerPeliculaPorId(id);
         if(pelicula == null){
@@ -68,7 +72,7 @@ public class PeliculaController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-23",HttpStatus.BAD_REQUEST, resultado);
         }
         pelicula = peliculaService.actualizarPelicula(id, peliculaModificada);
-        return pelicula;
+        return ResponseEntity.ok("Se modificó la pelicula con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%
@@ -77,6 +81,9 @@ public class PeliculaController {
         Pelicula pelicula;
         if(id < 1){
             throw new IdNotValueException("El id-pelicula debe ser númerico y mayor a 0", "err-24",HttpStatus.BAD_REQUEST);
+        }
+        if(id <= 4 ){
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-pelicula:"+" "+ id +" "+"puesto que varias funciones y boletos de cine ya lo contienen");
         }
         pelicula = peliculaService.obtenerPeliculaPorId(id);
         if(pelicula == null){

@@ -42,22 +42,26 @@ public class SucursalController {
 
     //Sí Funciona al 100%
     @PostMapping("/sucursal")
-    public Sucursal crearSucursal(@Valid @RequestBody Sucursal sucursal, BindingResult resultado) {
+    public ResponseEntity<String> crearSucursal(@Valid @RequestBody Sucursal sucursal, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-13",HttpStatus.NOT_FOUND, resultado);
         }
-        return sucursalService.crearSucursal(sucursal);
+        sucursal = sucursalService.crearSucursal(sucursal);
+        return ResponseEntity.ok("Se creó:"+ sucursal);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/sucursal/{id}")
-    public Sucursal actualizarSucursal(@PathVariable Long id, @Valid  @RequestBody Sucursal sucursalModificada, BindingResult resultado) {
+    public ResponseEntity<String> actualizarSucursal(@PathVariable Long id, @Valid  @RequestBody Sucursal sucursalModificada, BindingResult resultado) {
         Sucursal sucursal;
         if(id < 1){
             throw new IdNotValueException("El id-sucursal debe ser númerico y mayor  a 0", "err-14",HttpStatus.BAD_REQUEST);
+        }
+        if(id == 1) {
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sucursal:" + " " + id + " " + "puesto que varias funciones y boletos de cine ya lo contienen");
         }
         sucursal = sucursalService.obtenerSucursalPorId(id);
         if(sucursal == null){
@@ -68,7 +72,7 @@ public class SucursalController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-13",HttpStatus.BAD_REQUEST, resultado);
         }
         sucursal = sucursalService.actualizarSucursal(id, sucursalModificada);
-        return sucursal;
+        return ResponseEntity.ok("Se modificó la sucursal con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%
@@ -78,12 +82,12 @@ public class SucursalController {
         if(id < 1){
             throw new IdNotValueException("El id-sucursal debe ser númerico y mayor a 0", "err-14",HttpStatus.BAD_REQUEST);
         }
+        if(id == 1){
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sucursal:"+" "+ id +" "+"puesto que varias funciones y boletos de cine ya lo contienen");
+        }
         sucursal = sucursalService.obtenerSucursalPorId(id);
         if(sucursal == null){
             throw new NotFoundException("No se encontró ninguna sucursal con ese id:"+" "+ id,"err-12",HttpStatus.NOT_FOUND);
-        }
-        if(id == 1){
-            return ResponseEntity.ofNullable("No se puede eliminar el id-sucursal:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
         }
         sucursal = sucursalService.eliminarSucursal(id);
         return ResponseEntity.ok("Se eliminó la sucursal con id:"+" "+ id);

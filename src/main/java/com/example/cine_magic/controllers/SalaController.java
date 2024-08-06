@@ -63,7 +63,7 @@ public class SalaController {
             throw new IdNotValueException("El id-sala debe ser númerico y mayor a 0", "err-84",HttpStatus.BAD_REQUEST);
         }
         if(id < 11) {
-            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:" + " " + id + " " + "puesto que varias funciones de cine ya lo contienen");
+            return ResponseEntity.badRequest().body("No se puede modificar el id-sala:" + " " + id + " " + "puesto que varias funciones y boletos de cine ya lo contienen");
         }
         sala = salaService.obtenerSalaPorId(id);
         if(sala == null){
@@ -85,7 +85,7 @@ public class SalaController {
             throw new IdNotValueException("El id-sala debe ser númerico y mayor a 0", "err-84",HttpStatus.BAD_REQUEST);
         }
         if(id < 11){
-            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:"+" "+ id +" "+"puesto que varias funciones de cine ya lo contienen");
+            return ResponseEntity.badRequest().body("No se puede eliminar el id-sala:"+" "+ id +" "+"puesto que varias funciones y boletos de cine ya lo contienen");
         }
         sala = salaService.obtenerSalaPorId(id);
         if(sala == null){

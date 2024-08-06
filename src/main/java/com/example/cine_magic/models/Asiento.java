@@ -26,13 +26,18 @@ public class Asiento {
     @Column(name = "Número", nullable = false)
     private String Numero;
 
+    @NotNull(message = "Disponible no debe ser null")
+    @Column(name = "Disponible", nullable = false)
+    private Boolean Disponible;
+
     public Asiento() {
     }
 
-    public Asiento(String ID_Asiento, String fila, String numero) {
+    public Asiento(String ID_Asiento, String fila, String numero, Boolean disponible) {
         this.ID_Asiento = ID_Asiento;
         Fila = fila;
         Numero = numero;
+        Disponible = disponible;
     }
 
     public String getID_Asiento() {
@@ -59,12 +64,22 @@ public class Asiento {
         Numero = numero;
     }
 
+    public Boolean getDisponible() {
+        return Disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        Disponible = disponible;
+    }
+
     @Override
     public String toString() {
         return "Asiento{" +
-                "ID_Asiento=" + ID_Asiento +
+                "ID_Asiento='" + ID_Asiento + '\'' +
                 ", Fila='" + Fila + '\'' +
                 ", Numero='" + Numero + '\'' +
+                ", Disponible=" + Disponible +
                 '}';
     }
 }
+

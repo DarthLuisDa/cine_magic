@@ -31,14 +31,20 @@ public class Boleto {
     @Column(name = "Precio", nullable = false)
     private String Precio;
 
+    @NotNull(message = "La fecha_compra no debe ser null")
+    @NotEmpty(message = "La fecha_compra no debe estar vacío")
+    @Column(name = "Fecha_Compra", nullable = false)
+    private String Fecha_Compra;
+
     public Boleto() {
     }
 
-    public Boleto(String ID_Boleto, Funcion FK_ID_Funcion, Asiento FK_ID_Asiento, String precio) {
+    public Boleto(String ID_Boleto, Funcion FK_ID_Funcion, Asiento FK_ID_Asiento, String precio, String fecha_Compra) {
         this.ID_Boleto = ID_Boleto;
         this.FK_ID_Funcion = FK_ID_Funcion;
         this.FK_ID_Asiento = FK_ID_Asiento;
         Precio = precio;
+        Fecha_Compra = fecha_Compra;
     }
 
     public String getID_Boleto() {
@@ -73,13 +79,22 @@ public class Boleto {
         Precio = precio;
     }
 
+    public String getFecha_Compra() {
+        return Fecha_Compra;
+    }
+
+    public void setFecha_Compra(String fecha_Compra) {
+        Fecha_Compra = fecha_Compra;
+    }
+
     @Override
     public String toString() {
         return "Boleto{" +
-                "ID_Boleto=" + ID_Boleto +
+                "ID_Boleto='" + ID_Boleto + '\'' +
                 ", FK_ID_Funcion=" + FK_ID_Funcion +
                 ", FK_ID_Asiento=" + FK_ID_Asiento +
                 ", Precio='" + Precio + '\'' +
+                ", Fecha_Compra='" + Fecha_Compra + '\'' +
                 '}';
     }
 }

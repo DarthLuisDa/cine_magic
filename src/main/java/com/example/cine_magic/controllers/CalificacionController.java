@@ -43,19 +43,20 @@ public class CalificacionController {
 
     //Sí Funciona al 100%
     @PostMapping("/calificacion")
-    public Calificacion crearCalificacion(@Valid @RequestBody Calificacion calificacion, BindingResult resultado) {
+    public ResponseEntity<String> crearCalificacion(@Valid @RequestBody Calificacion calificacion, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.NOT_FOUND, resultado);
         }
-        return calificacionService.crearCalificacion(calificacion);
+        calificacion = calificacionService.crearCalificacion(calificacion);
+        return ResponseEntity.ok("Se creó:"+ calificacion);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/calificacion/{id}")
-    public Calificacion actualizarCalificacion(@PathVariable Long id, @Valid  @RequestBody Calificacion calificacionModificado, BindingResult resultado) {
+    public ResponseEntity<String> actualizarCalificacion(@PathVariable Long id, @Valid  @RequestBody Calificacion calificacionModificada, BindingResult resultado) {
         Calificacion calificacion;
         if(id < 1){
             throw new IdNotValueException("El id-calificación debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
@@ -68,8 +69,8 @@ public class CalificacionController {
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.BAD_REQUEST, resultado);
         }
-        calificacion = calificacionService.actualizarCalificacion(id, calificacionModificado);
-        return calificacion;
+        calificacion = calificacionService.actualizarCalificacion(id, calificacionModificada);
+        return ResponseEntity.ok("Se modificó el asiento con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%

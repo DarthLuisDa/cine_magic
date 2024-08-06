@@ -42,19 +42,20 @@ public class BoletoController {
 
     //Sí Funciona al 100%
     @PostMapping("/boleto")
-    public Boleto crearBoleto(@Valid @RequestBody Boleto boleto, BindingResult resultado) {
+    public  ResponseEntity<String> crearBoleto(@Valid @RequestBody Boleto boleto, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.NOT_FOUND, resultado);
         }
-        return boletoService.crearBoleto(boleto);
+        boleto = boletoService.crearBoleto(boleto);
+        return ResponseEntity.ok("Se creó:"+ boleto);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/boleto/{id}")
-    public Boleto actualizarBoleto(@PathVariable Long id, @Valid  @RequestBody Boleto boletoModificado, BindingResult resultado) {
+    public ResponseEntity<String> actualizarBoleto(@PathVariable Long id, @Valid  @RequestBody Boleto boletoModificado, BindingResult resultado) {
         Boleto boleto;
         if(id < 1){
             throw new IdNotValueException("El id-boleto debe ser númerico y mayor a 0", "err-84",HttpStatus.BAD_REQUEST);
@@ -68,7 +69,7 @@ public class BoletoController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.BAD_REQUEST, resultado);
         }
         boleto = boletoService.actualizarBoleto(id, boletoModificado);
-        return boleto;
+        return ResponseEntity.ok("Se modificó el boleto con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%

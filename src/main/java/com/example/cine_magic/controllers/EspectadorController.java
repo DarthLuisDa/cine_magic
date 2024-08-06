@@ -43,19 +43,20 @@ public class EspectadorController {
 
     //Sí Funciona al 100%
     @PostMapping("/espectador")
-    public Espectador crearEspectador(@Valid @RequestBody Espectador espectador, BindingResult resultado) {
+    public ResponseEntity<String> crearEspectador(@Valid @RequestBody Espectador espectador, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.NOT_FOUND, resultado);
         }
-        return espectadorService.crearEspectador(espectador);
+        espectador = espectadorService.crearEspectador(espectador);
+        return ResponseEntity.ok("Se creó:"+ espectador);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/espectador/{id}")
-    public Espectador actualizarEspectador(@PathVariable Long id, @Valid  @RequestBody Espectador espectadorModificado, BindingResult resultado) {
+    public ResponseEntity<String> actualizarEspectador(@PathVariable Long id, @Valid  @RequestBody Espectador espectadorModificado, BindingResult resultado) {
         Espectador espectador;
         if(id < 1){
             throw new IdNotValueException("El id-espectador debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
@@ -69,7 +70,7 @@ public class EspectadorController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.BAD_REQUEST, resultado);
         }
         espectador = espectadorService.actualizarEspectador(id, espectadorModificado);
-        return espectador;
+        return ResponseEntity.ok("Se modificó el administrador con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%

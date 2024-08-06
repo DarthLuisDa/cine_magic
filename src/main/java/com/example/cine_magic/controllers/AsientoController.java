@@ -42,22 +42,26 @@ public class AsientoController {
 
     //Sí Funciona al 100%
     @PostMapping("/asiento")
-    public Asiento crearAsiento(@Valid @RequestBody Asiento asiento, BindingResult resultado) {
+    public ResponseEntity<String> crearAsiento(@Valid @RequestBody Asiento asiento, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-74",HttpStatus.NOT_FOUND, resultado);
         }
-        return asientoService.crearAsiento(asiento);
+        asiento = asientoService.crearAsiento(asiento);
+        return ResponseEntity.ok("Se creó:"+ asiento);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/asiento/{id}")
-    public Asiento actualizarAsiento(@PathVariable Long id, @Valid  @RequestBody Asiento asientoModificado, BindingResult resultado) {
+    public ResponseEntity<String> actualizarAsiento(@PathVariable Long id, @Valid  @RequestBody Asiento asientoModificado, BindingResult resultado) {
         Asiento asiento;
         if(id < 1){
-            throw new IdNotValueException("El asiento debe ser númerico y mayor a 0", "err-72",HttpStatus.BAD_REQUEST);
+            throw new IdNotValueException("El id-asiento debe ser númerico y mayor a 0", "err-72",HttpStatus.BAD_REQUEST);
+        }
+        if(id < 147) {
+            return ResponseEntity.badRequest().body("El id-asiento:" + " " + id + " " + "no se puede modificar, todas nuestras salas deben contar con 146 asientos");
         }
         asiento = asientoService.obtenerAsientoPorId(id);
         if(asiento == null){
@@ -68,7 +72,7 @@ public class AsientoController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-74",HttpStatus.BAD_REQUEST, resultado);
         }
         asiento = asientoService.actualizarAsiento(id, asientoModificado);
-        return asiento;
+        return ResponseEntity.ok("Se modificó el asiento con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%
@@ -77,6 +81,9 @@ public class AsientoController {
         Asiento asiento;
         if(id < 1){
             throw new IdNotValueException("El asiento debe ser númerico y mayor a 0", "err-25",HttpStatus.BAD_REQUEST);
+        }
+        if(id < 147) {
+            return ResponseEntity.badRequest().body("El id-asiento:" + " " + id + " " + "no se puede eliminar, todas nuestras salas deben contar con 146 asientos");
         }
         asiento = asientoService.obtenerAsientoPorId(id);
         if(asiento == null){

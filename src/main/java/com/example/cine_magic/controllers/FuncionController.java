@@ -43,19 +43,20 @@ public class FuncionController {
 
     //Sí Funciona al 100%
     @PostMapping("/funcion")
-    public Funcion crearFuncion(@Valid @RequestBody Funcion funcion, BindingResult resultado) {
+    public ResponseEntity<String> crearFuncion(@Valid @RequestBody Funcion funcion, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-18",HttpStatus.NOT_FOUND, resultado);
         }
-        return funcionService.crearFuncion(funcion);
+        funcion = funcionService.crearFuncion(funcion);
+        return ResponseEntity.ok("Se creó:"+ funcion);
     }
 
 
    //Sí Funciona al 100%
 
     @PutMapping("/funcion/{id}")
-    public Funcion actualizarFuncion(@PathVariable Long id, @Valid  @RequestBody Funcion funcionModificada, BindingResult resultado) {
+    public ResponseEntity<String> actualizarFuncion(@PathVariable Long id, @Valid  @RequestBody Funcion funcionModificada, BindingResult resultado) {
         Funcion funcion;
         if(id < 1){
             throw new IdNotValueException("El id-función debe ser númerico y mayor a 0", "err-16",HttpStatus.BAD_REQUEST);
@@ -69,7 +70,7 @@ public class FuncionController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-18",HttpStatus.BAD_REQUEST, resultado);
         }
         funcion = funcionService.actualizarFuncion(id, funcionModificada);
-        return funcion;
+        return ResponseEntity.ok("Se modificó la función con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%

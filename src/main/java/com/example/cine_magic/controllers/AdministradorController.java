@@ -43,19 +43,20 @@ public class AdministradorController {
 
     //Sí Funciona al 100%
     @PostMapping("/administrador")
-    public Administrador crearAdministrador(@Valid @RequestBody Administrador administrador, BindingResult resultado) {
+    public ResponseEntity<String> crearAdministrador(@Valid @RequestBody Administrador administrador, BindingResult resultado) {
         //Manejar los: @NotNull y los @NotEmpty
         if(resultado.hasErrors()){
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.NOT_FOUND, resultado);
         }
-        return administradorService.crearAdministrador(administrador);
+        administrador = administradorService.crearAdministrador(administrador);
+        return ResponseEntity.ok("Se creó:"+ administrador);
     }
 
 
     //Sí Funciona al 100%
 
     @PutMapping("/administrador/{id}")
-    public Administrador actualizarAdministrador(@PathVariable Long id, @Valid  @RequestBody Administrador administradorModificado, BindingResult resultado) {
+    public ResponseEntity<String> actualizarAdministrador(@PathVariable Long id, @Valid  @RequestBody Administrador administradorModificado, BindingResult resultado) {
         Administrador administrador;
         if(id < 1){
             throw new IdNotValueException("El id-administrador debe ser númerico y mayor a 0", "err-81",HttpStatus.BAD_REQUEST);
@@ -69,7 +70,7 @@ public class AdministradorController {
             throw new InvalidDataException("Error de validación - Favor de revisar los datos introducidos", "err-83",HttpStatus.BAD_REQUEST, resultado);
         }
         administrador = administradorService.actualizarAdministrador(id, administradorModificado);
-        return administrador;
+        return ResponseEntity.ok("Se modificó el administrador con id:"+" "+ id);
     }
 
     //Sí Funciona al 100%

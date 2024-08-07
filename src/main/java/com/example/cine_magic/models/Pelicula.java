@@ -68,7 +68,7 @@ public class Pelicula {
         this.ID_Pelicula = ID_Película;
     }
 
-    public String getTítulo() {
+    public String getTítulo(String s) {
         return Titulo;
     }
 

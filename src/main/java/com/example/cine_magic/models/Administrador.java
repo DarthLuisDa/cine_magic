@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Administradores")
@@ -30,6 +31,7 @@ public class Administrador {
 
     @NotNull(message = "La contraseña_administrador no debe ser null")
     @NotEmpty(message = "La contraseña_administrador no debe estar vacío")
+    @Size(min = 4, max = 4)
     @Column(name = "Contraseña_Administrador", nullable = false)
     private String Contrasena_Administrador;
 

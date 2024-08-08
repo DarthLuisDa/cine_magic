@@ -56,7 +56,7 @@ public class Funcion {
         this.ID_Función = ID_Función;
     }
 
-    public Pelicula getFK_ID_Película() {
+    public Pelicula getFK_ID_Película(String s) {
         return FK_ID_Película;
     }
 

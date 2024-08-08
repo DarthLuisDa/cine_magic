@@ -48,7 +48,7 @@ public class Asiento {
         this.ID_Asiento = ID_Asiento;
     }
 
-    public String getFila() {
+    public String getFila(String s) {
         return Fila;
     }
 

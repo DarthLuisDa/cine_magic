@@ -55,7 +55,7 @@ public class Sucursal {
         this.ID_Sucursal = ID_Sucursal;
     }
 
-    public String getNombre_Sucursal() {
+    public String getNombre_Sucursal(String s) {
         return Nombre_Sucursal;
     }
 

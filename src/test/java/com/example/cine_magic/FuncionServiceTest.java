@@ -35,7 +35,7 @@ public class FuncionServiceTest {
         MockitoAnnotations.initMocks(this);
         funcion = new Funcion();
         funcion.setID_Función(String.valueOf(1L));
-        funcion.getFK_ID_Película("1");
+        funcion.getFK_ID_Película();
     }
     //Búsqueda completa de la lista
     @Test

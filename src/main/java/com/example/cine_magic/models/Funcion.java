@@ -56,11 +56,11 @@ public class Funcion {
         this.ID_Función = ID_Función;
     }
 
-    public Pelicula getFK_ID_Película(String s) {
+    public Pelicula getFK_ID_Película() {
         return FK_ID_Película;
     }
 
-    public void setFK_ID_Película(Pelicula FK_ID_Película) {
+    public void setFK_ID_Película(Pelicula FK_ID_Sucursal) {
         this.FK_ID_Película = FK_ID_Película;
     }
 
